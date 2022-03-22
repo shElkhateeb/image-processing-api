@@ -4,3 +4,5 @@ https://blog.logrocket.com/configuring-nodemon-with-typescript/
 
 
 https://stackoverflow.com/questions/26079611/node-js-typeerror-path-must-be-absolute-or-specify-root-to-res-sendfile-failed
+
+https://flaviocopes.com/how-to-check-if-file-exists-node/
