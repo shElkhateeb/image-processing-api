@@ -39,25 +39,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
-var request = (0, supertest_1.default)(index_1.default);
-describe('Endpoint Tests', function () {
-    it('gets the resize api endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/api/resize?filename=fjord&width=1920&height=1280')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(200);
+var path_1 = __importDefault(require("path"));
+var fs_1 = require("fs");
+var resizeImage = function (filename, width, height, imgPath) { return __awaiter(void 0, void 0, void 0, function () {
+    var originalImage;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log(filename);
+                return [4 /*yield*/, exists(path_1.default.resolve(imgPath))];
+            case 1:
+                // check if resized image not found in thumbnail folder
+                if (_a.sent()) {
+                    console.log('found');
                     return [2 /*return*/];
+                }
+                else {
+                    // open image file
+                    console.log('processing image');
+                    try {
+                        originalImage = fs_1.promises.readFile(path_1.default.resolve('Images/' + filename + '.jpg'));
+                        console.log(originalImage);
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
+                    // resize image
+                    // save image in thumbnail folder
+                }
+                return [2 /*return*/];
+        }
+    });
+}); };
+// function to check if a file exists
+function exists(path) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fs_1.promises.access(path)];
+                case 1:
+                    _b.sent();
+                    return [2 /*return*/, true];
+                case 2:
+                    _a = _b.sent();
+                    return [2 /*return*/, false];
+                case 3: return [2 /*return*/];
             }
         });
-    }); });
-});
-// describe('Image Processing Tests', () => {
-//   it('sum of 3 and 2 is 5', () => {
-//       expect(sum(3, 2)).toEqual(5);
-//   });
-// });
+    });
+}
+exports.default = resizeImage;
