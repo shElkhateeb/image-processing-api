@@ -5,9 +5,11 @@ import resizeImg from './api/resize';
 const routes = express.Router();
 
 routes.get('/', (req, res) => {
-    res.send('to resize an image visit http://localhost:3000/api/resize?filename=your_filename&width=width_you_want&height=height_you_want');
+  res.send(
+    'to resize an image visit http://localhost:3000/api/resize?filename=your_filename&width=width_you_want&height=height_you_want'
+  );
 });
 
-  routes.use('/resize',resizeImg);
+routes.use('/resize', resizeImg);
 
-  export default routes;
+export default routes;
