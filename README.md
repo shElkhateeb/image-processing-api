@@ -26,5 +26,7 @@ To start the server run the `npm run start` command from the terminal. Then visi
 
 - [How to check if a file exists in Node.js](https://flaviocopes.com/how-to-check-if-file-exists-node/)
 
+- [Linting in TypeScript using ESLint and Prettier](https://blog.logrocket.com/linting-typescript-using-eslint-and-prettier/)
+
 ## Author
 - Shorouk Elkhateeb
