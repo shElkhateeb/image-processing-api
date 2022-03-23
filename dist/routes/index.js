@@ -1,18 +1,14 @@
-'use strict';
-var __importDefault =
-	(this && this.__importDefault) ||
-	function (mod) {
-		return mod && mod.__esModule ? mod : { default: mod };
-	};
-Object.defineProperty(exports, '__esModule', { value: true });
-var express_1 = __importDefault(require('express'));
-var resize_1 = __importDefault(require('./api/resize'));
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var resize_1 = __importDefault(require("./api/resize"));
 // create router
 var routes = express_1.default.Router();
 routes.get('/', function (req, res) {
-	res.send(
-		'to resize an image visit http://localhost:3000/api/resize?filename=your_filename&width=width_you_want&height=height_you_want'
-	);
+    res.send('to resize an image visit http://localhost:3000/api/resize?filename=your_filename&width=width_you_want&height=height_you_want');
 });
 routes.use('/resize', resize_1.default);
 exports.default = routes;

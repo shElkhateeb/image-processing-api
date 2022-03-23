@@ -39,18 +39,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
-var request = (0, supertest_1.default)(index_1.default);
-describe('Endpoint Tests', function () {
-    it('gets the resize api endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+var resizeimage_1 = __importDefault(require("../../utilities/resizeimage"));
+describe('Image Processing Tests', function () {
+    it('expects image with filename=icelandwaterfall, width=50 and height=30 to return path "thumbnail/icelandwaterfall50&30.jpg"', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var path;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/api/resize?filename=fjord&width=1920&height=1280')];
+                case 0: return [4 /*yield*/, (0, resizeimage_1.default)('icelandwaterfall', '50', '30')];
                 case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(200);
+                    path = _a.sent();
+                    expect(path).toEqual('thumbnail/icelandwaterfall50&30.jpg');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('expects unavailable image name to return path "images/not_found.jpg"', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var path;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, resizeimage_1.default)('icelandwater', '50', 'aa')];
+                case 1:
+                    path = _a.sent();
+                    expect(path).toEqual('images/not_found.jpg');
                     return [2 /*return*/];
             }
         });
