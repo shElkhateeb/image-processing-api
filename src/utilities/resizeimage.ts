@@ -34,6 +34,4 @@ const resizeImage = async (
 	return outputPath;
 };
 
-
-
 export default resizeImage;
