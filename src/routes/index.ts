@@ -1,5 +1,5 @@
 import express from 'express';
-import resizeImg from './api/resize';
+import resizeRoute from './api/resize';
 
 // create router
 const routes = express.Router();
@@ -10,6 +10,6 @@ routes.get('/', (req, res) => {
 	);
 });
 
-routes.use('/resize', resizeImg);
+routes.use('/resize', resizeRoute);
 
 export default routes;

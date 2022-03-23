@@ -39,39 +39,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var path_1 = __importDefault(require("path"));
 var sharp_1 = __importDefault(require("sharp"));
 var fs_1 = require("fs");
-var resizeImage = function (filename, width, height, imgPath) { return __awaiter(void 0, void 0, void 0, function () {
-    var originalImage;
+var imageNotFoundPath = 'images/not_found.jpg';
+var resizeImage = function (filename, width, height) { return __awaiter(void 0, void 0, void 0, function () {
+    var inputPath, outputPath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(filename);
-                return [4 /*yield*/, exists(path_1.default.resolve(imgPath))];
+                inputPath = 'images/' + filename + '.jpg';
+                outputPath = 'thumbnail/' + filename + width + '&' + height + '.jpg';
+                return [4 /*yield*/, exists(outputPath)];
             case 1:
-                // check if resized image not found in thumbnail folder
-                if (_a.sent()) {
-                    console.log('found');
-                    //return;
-                }
-                else {
-                    // open image file
-                    console.log('processing image');
-                    try {
-                        originalImage = fs_1.promises.readFile(path_1.default.resolve('Images/' + filename + '.jpg'));
-                        console.log(originalImage);
-                    }
-                    catch (err) {
-                        console.log(err);
-                    }
-                    // resize image
-                    (0, sharp_1.default)('../../images/fjord.jpg')
-                        .resize(200, 200)
-                        .toFile('out.jpg');
-                    // save image in thumbnail folder
-                }
-                return [2 /*return*/];
+                if (!_a.sent()) return [3 /*break*/, 2];
+                return [2 /*return*/, outputPath];
+            case 2: return [4 /*yield*/, exists(inputPath)];
+            case 3:
+                if (!_a.sent()) return [3 /*break*/, 5];
+                // resize image
+                return [4 /*yield*/, (0, sharp_1.default)(inputPath)
+                        .resize(parseInt(width), parseInt(height))
+                        // save image in thumbnail folder
+                        .toFile(outputPath)];
+            case 4:
+                // resize image
+                _a.sent();
+                return [3 /*break*/, 6];
+            case 5:
+                // assign output path to not found image
+                outputPath = imageNotFoundPath;
+                _a.label = 6;
+            case 6: return [2 /*return*/, outputPath];
         }
     });
 }); };

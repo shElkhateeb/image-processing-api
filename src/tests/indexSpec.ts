@@ -1,5 +1,6 @@
 import supertest from 'supertest';
 import app from '../index';
+import resizeImage from '../utilities/resizeimage';
 
 const request = supertest(app);
 
@@ -12,8 +13,14 @@ describe('Endpoint Tests', () => {
 	});
 });
 
-// describe('Image Processing Tests', () => {
-//   it('sum of 3 and 2 is 5', () => {
-//       expect(sum(3, 2)).toEqual(5);
-//   });
-// });
+describe('Image Processing Tests', () => {
+  it(`expects image with filename=icelandwaterfall, width=50 and height=30 to return path 'thumbnail/icelandwaterfall50&30.jpg'`, async() => {
+      const path = await resizeImage('icelandwaterfall', '50', '30');
+	expect(path).toEqual('thumbnail/icelandwaterfall50&30.jpg');
+  });
+
+  it(`expects unavailable image name to return path 'images/not_found.jpg'`, async() => {
+	const path = await resizeImage('icelandwater', '50', 'aa');
+  expect(path).toEqual('images/not_found.jpg');
+});
+});
