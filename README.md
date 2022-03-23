@@ -28,5 +28,7 @@ To start the server run the `npm run start` command from the terminal. Then visi
 
 - [Linting in TypeScript using ESLint and Prettier](https://blog.logrocket.com/linting-typescript-using-eslint-and-prettier/)
 
+- [Node.js Image Optimization with sharp in 5 minutes!](https://www.youtube.com/watch?v=2uqdstsb8WI)
+
 ## Author
 - Shorouk Elkhateeb

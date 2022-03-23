@@ -5,16 +5,12 @@ import resizeImage from '../../utilities/resizeimage';
 // create router
 const resizeImg = express.Router();
 
-resizeImg.get('/', (req, res) => {
+resizeImg.get('/', async(req, res) => {
 	const filename = req.query.filename as unknown as string;
-	const width = req.query.width as unknown as number;
-	const height = req.query.height as unknown as number;
-
-	const resizedImagePath =
-		'thumbnail/' + filename + width + '&' + height + '.jpg';
-
+	const width = req.query.width as unknown as string;
+	const height = req.query.height as unknown as string;
 	// resize image
-	resizeImage(filename, width, height, resizedImagePath);
+	const resizedImagePath = await resizeImage(filename, width, height);
 	// send resized image to the browser
 	res.sendFile(path.resolve(resizedImagePath));
 });

@@ -1,33 +1,31 @@
-import path from 'path';
 import sharp from 'sharp';
 import { promises as fsPromises } from 'fs';
 
+const imageNotFoundPath = 'images/not_found.jpg';
+
 const resizeImage = async (
 	filename: string,
-	width: number,
-	height: number,
-	imgPath: string
-): Promise<void> => {
-	console.log(filename);
-	// check if resized image not found in thumbnail folder
-	if (await exists(path.resolve(imgPath))) {
-		console.log('found');
-		return;
-	} else {
-		// open image file
-		console.log('processing image');
-		try {
-			const originalImage = fsPromises.readFile(
-				path.resolve('Images/' + filename + '.jpg')
-			);
-			console.log(originalImage);
-		} catch (err) {
-			console.log(err);
-		}
-		// resize image
-
-		// save image in thumbnail folder
-	}
+	width: string,
+	height: string,
+): Promise<string> => {
+	const inputPath = 'images/' + filename + '.jpg';
+  let outputPath = 'thumbnail/' + filename + width + '&' + height + '.jpg';
+  	// check if resized image is found in thumbnail folder
+  if (await exists(outputPath)){
+    return outputPath;
+    // if image not found in thumbnail folder
+    // check if the original image exists in the images folder
+  } else if(await exists(inputPath)){
+    // resize image
+    await sharp(inputPath)
+    .resize(parseInt(width), parseInt(height))
+    // save image in thumbnail folder
+    .toFile(outputPath);
+  } else{
+    // assign output path to not found image
+    outputPath = imageNotFoundPath;
+  }
+	return outputPath;
 };
 
 // function to check if a file exists
