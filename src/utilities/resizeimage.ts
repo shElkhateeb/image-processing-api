@@ -2,6 +2,7 @@ import sharp from 'sharp';
 import { promises as fsPromises } from 'fs';
 
 const imageNotFoundPath = 'images/not_found.jpg';
+const incorrectParamPath = 'images/incorrect_param.jpg';
 
 const resizeImage = async (
 	filename: string,
@@ -17,10 +18,14 @@ const resizeImage = async (
     // check if the original image exists in the images folder
   } else if(await exists(inputPath)){
     // resize image
-    await sharp(inputPath)
+    try {await sharp(inputPath)
     .resize(parseInt(width), parseInt(height))
     // save image in thumbnail folder
     .toFile(outputPath);
+    } catch (error) {
+        console.log(error);
+        outputPath = incorrectParamPath;
+    }
   } else{
     // assign output path to not found image
     outputPath = imageNotFoundPath;

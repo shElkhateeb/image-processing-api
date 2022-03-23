@@ -42,8 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
 var fs_1 = require("fs");
 var imageNotFoundPath = 'images/not_found.jpg';
+var incorrectParamPath = 'images/incorrect_param.jpg';
 var resizeImage = function (filename, width, height) { return __awaiter(void 0, void 0, void 0, function () {
-    var inputPath, outputPath;
+    var inputPath, outputPath, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -55,21 +56,28 @@ var resizeImage = function (filename, width, height) { return __awaiter(void 0, 
                 return [2 /*return*/, outputPath];
             case 2: return [4 /*yield*/, exists(inputPath)];
             case 3:
-                if (!_a.sent()) return [3 /*break*/, 5];
-                // resize image
+                if (!_a.sent()) return [3 /*break*/, 8];
+                _a.label = 4;
+            case 4:
+                _a.trys.push([4, 6, , 7]);
                 return [4 /*yield*/, (0, sharp_1.default)(inputPath)
                         .resize(parseInt(width), parseInt(height))
                         // save image in thumbnail folder
                         .toFile(outputPath)];
-            case 4:
-                // resize image
-                _a.sent();
-                return [3 /*break*/, 6];
             case 5:
+                _a.sent();
+                return [3 /*break*/, 7];
+            case 6:
+                error_1 = _a.sent();
+                console.log(error_1);
+                outputPath = incorrectParamPath;
+                return [3 /*break*/, 7];
+            case 7: return [3 /*break*/, 9];
+            case 8:
                 // assign output path to not found image
                 outputPath = imageNotFoundPath;
-                _a.label = 6;
-            case 6: return [2 /*return*/, outputPath];
+                _a.label = 9;
+            case 9: return [2 /*return*/, outputPath];
         }
     });
 }); };
