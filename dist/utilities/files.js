@@ -35,50 +35,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var sharp_1 = __importDefault(require("sharp"));
-var files_1 = __importDefault(require("./files"));
-var imageNotFoundPath = 'images/not_found.jpg';
-var incorrectParamPath = 'images/incorrect_param.jpg';
-var resizeImage = function (filename, width, height) { return __awaiter(void 0, void 0, void 0, function () {
-    var inputPath, outputPath, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                inputPath = 'images/' + filename + '.jpg';
-                outputPath = 'thumbnail/' + filename + width + '&' + height + '.jpg';
-                return [4 /*yield*/, (0, files_1.default)(outputPath)];
-            case 1:
-                if (!_a.sent()) return [3 /*break*/, 2];
-                return [2 /*return*/, outputPath];
-            case 2: return [4 /*yield*/, (0, files_1.default)(inputPath)];
-            case 3:
-                if (!_a.sent()) return [3 /*break*/, 8];
-                _a.label = 4;
-            case 4:
-                _a.trys.push([4, 6, , 7]);
-                return [4 /*yield*/, (0, sharp_1.default)(inputPath)
-                        .resize(parseInt(width), parseInt(height))
-                        // save image in thumbnail folder
-                        .toFile(outputPath)];
-            case 5:
-                _a.sent();
-                return [3 /*break*/, 7];
-            case 6:
-                error_1 = _a.sent();
-                console.log(error_1);
-                outputPath = incorrectParamPath;
-                return [3 /*break*/, 7];
-            case 7: return [3 /*break*/, 9];
-            case 8:
-                // assign output path to not found image
-                outputPath = imageNotFoundPath;
-                _a.label = 9;
-            case 9: return [2 /*return*/, outputPath];
-        }
+var fs_1 = require("fs");
+// function to check if a file exists
+function exists(path) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fs_1.promises.access(path)];
+                case 1:
+                    _b.sent();
+                    return [2 /*return*/, true];
+                case 2:
+                    _a = _b.sent();
+                    return [2 /*return*/, false];
+                case 3: return [2 /*return*/];
+            }
+        });
     });
-}); };
-exports.default = resizeImage;
+}
+exports.default = exists;

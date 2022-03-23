@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { promises as fsPromises } from 'fs';
+import exists from './files';
 
 const imageNotFoundPath = 'images/not_found.jpg';
 const incorrectParamPath = 'images/incorrect_param.jpg';
@@ -34,14 +34,6 @@ const resizeImage = async (
 	return outputPath;
 };
 
-// function to check if a file exists
-async function exists(path: string) {
-	try {
-		await fsPromises.access(path);
-		return true;
-	} catch {
-		return false;
-	}
-}
+
 
 export default resizeImage;
