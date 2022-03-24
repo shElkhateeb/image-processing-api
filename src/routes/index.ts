@@ -4,7 +4,7 @@ import resizeRoute from './api/resize';
 // create router
 const routes = express.Router();
 
-routes.get('/', (req, res) => {
+routes.get('/', (req: express.Request, res: express.Response): void => {
 	res.send(
 		'to resize an image visit http://localhost:3000/api/resize?filename=your_filename&width=width_you_want&height=height_you_want'
 	);
